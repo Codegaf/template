@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('example-content');
-});
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'users', 'as' => 'user.'], function() {
+   Route::post('list', 'User\UserController@list')->name('list');
+});
+Route::resource('user', 'User\UserController');
+
+

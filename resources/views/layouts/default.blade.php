@@ -11,9 +11,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i" rel="stylesheet">
 
@@ -22,9 +19,31 @@
     <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.min.css')}}" rel="stylesheet">
 
+    <link href="{{asset('css/izimodal/iziModal.min.css')}}" rel="stylesheet">
+
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="{{asset('assets/img/apple-touch-icon.png')}}">
     <link rel="icon" href="{{asset('assets/img/favicon.png')}}">
+
+    <style>
+        .error {
+            color: red;
+        }
+        .sidebar-header {
+            background-color: {{ config('brand.sidebar-header') }} !important;
+        }
+        .sidebar.sidebar-color-company .menu:not(.menu-bordery)>.menu-item.active>.menu-link {
+            background-color: {{ config('brand.sidebar-active-color-company') }} !important;
+        }
+        .topbar {
+            background-color: {{ config('brand.topbar-color') }} !important;
+        }
+        .btn-company {
+            background-color: {{ config('brand.btn-company') }} !important;
+            color: {{ config('brand.btn-text-color-company') }} !important;
+        }
+
+    </style>
 
     @yield('styles')
 </head>
@@ -57,10 +76,12 @@
 </main>
 <!-- END Main container -->
 
-
+<!-- Modal -->
+<div id="modal"></div>
+<!-- END Modal -->
 
 <!-- Global quickview -->
-<div id="qv-global" class="quickview" data-url="{{asset('assets/data/quickview-global.html')}}">
+<div id="qv-global" class="quickview" data-url="{{ asset('assets/data/quickview-global.html') }}">
     <div class="spinner-linear">
         <div class="line"></div>
     </div>
@@ -70,9 +91,21 @@
 
 
 <!-- Scripts -->
-<script src="{{asset('assets/js/core.min.js')}}"></script>
-<script src="{{asset('assets/js/app.min.js')}}"></script>
-<script src="{{asset('assets/js/script.min.js')}}"></script>
+<script src="{{ asset('assets/js/core.min.js') }}"></script>
+<script src="{{ asset('assets/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/js/script.min.js') }}"></script>
+
+<script src="{{ asset('js/izimodal/iziModal.min.js') }}"></script>
+<script src="{{ asset('js/izimodal/config.js') }}"></script>
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
 
 @yield('scripts')
 

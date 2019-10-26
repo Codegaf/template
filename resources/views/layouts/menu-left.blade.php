@@ -1,52 +1,41 @@
 <!-- Sidebar -->
-<aside class="sidebar sidebar-icons-right sidebar-icons-boxed sidebar-expand-lg">
+<aside class="sidebar sidebar-color-company sidebar-icons-right sidebar-icons-boxed sidebar-expand-lg sidebar-{{ config('brand.sidebar-bg-color')}} ">
     <header class="sidebar-header">
-        <a class="logo-icon" href="../index.html"><img src="{{asset('assets/img/logo-icon-light.png')}}" alt="logo icon"></a>
         <span class="logo">
-          <a href="../index.html"><img src="{{asset('assets/img/logo-light.png')}}" alt="logo"></a>
+          <a href="{{route('home')}}"><img src="{{config('brand.main-logo')}}" alt="logo"></a>
         </span>
-        <span class="sidebar-toggle-fold"></span>
     </header>
 
     <nav class="sidebar-navigation">
         <ul class="menu">
 
-            <li class="menu-category">Category 1</li>
+            <li class="menu-category">Admin</li>
 
             <li class="menu-item active">
                 <a class="menu-link" href="{{ route('home') }}">
                     <span class="icon fa fa-home"></span>
-                    <span class="title">Dashboard</span>
+                    <span class="title">Inicio</span>
                 </a>
             </li>
 
             <li class="menu-item">
-                <a class="menu-link" href="#">
+                <a class="menu-link" href="{{ route('user.index') }}">
                     <span class="icon fa fa-user"></span>
                     <span class="title">Users</span>
-                    <span class="arrow"></span>
                 </a>
-
-                <ul class="menu-submenu">
-                    <li class="menu-item">
-                        <a class="menu-link" href="#">
-                            <span class="dot"></span>
-                            <span class="title">Moderators</span>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a class="menu-link" href="#">
-                            <span class="dot"></span>
-                            <span class="title">Customers</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
 
+            <li class="menu-item">
+                <a class="menu-link" href="#" onclick="document.getElementById('logout-form').submit();">
+                    <span class="icon ti-power-off"></span>
+                    <span class="title">Cerrar sesión</span>
+                    <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </a>
+            </li>
 
-
-            <li class="menu-category">Category 2</li>
+            <li class="menu-category">Ejemplo Submenú</li>
 
 
             <li class="menu-item">
@@ -79,7 +68,6 @@
                     </li>
                 </ul>
             </li>
-
         </ul>
     </nav>
 

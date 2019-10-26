@@ -4,14 +4,14 @@
     <div class="row min-h-fullscreen center-vh p-20 m-0">
         <div class="col-12">
             <div class="card card-shadowed px-50 py-30 w-400px mx-auto" style="max-width: 100%">
-                <h5 class="text-uppercase">Create an account</h5>
+                <img src="{{ config('brand.main-logo') }}" class="img-fluid" alt="Tecaer">
                 <br>
 
                 <form method="POST" class="form-type-material" action="{{ route('register') }}">
                     @csrf
 
                     <div class="form-group">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required>
                         <label for="name">Name</label>
 
                         @error('name')
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
                         <label for="email">Email address</label>
 
                         @error('email')
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
                         <label for="password">Password</label>
 
                         @error('password')
@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
 
                         <label for="password-confirm">{{ __('Confirm Password') }}</label>
                     </div>
