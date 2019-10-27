@@ -8,6 +8,8 @@ use App\Repositories\UserRepo;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -46,18 +48,24 @@ class UserController extends Controller
      */
     public function store(UserSave $request)
     {
-        $this->userRepo->store($request);
+        try {
+            $this->userRepo->store($request);
+        }
+        catch (Throwable $e) {
+            Log::error($e);
+            return response()->error();
+        }
 
-        return redirect()->route('user.index');
+        return response()->success();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -76,24 +84,39 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UserSave  $request
+     * @param  User  $user
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(UserSave $request, User $user)
     {
-        //
+        try {
+            $this->userRepo->store($request, $user);
+        }
+        catch (Throwable $e) {
+            Log::error($e);
+            return response()->error();
+        }
+
+        return response()->success();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        try {
+            $this->userRepo->delete($user);
+        }
+        catch (Throwable $e) {
+            return response()->error();
+        }
+
+        return response()->success();
     }
 
     public function list() {

@@ -15,11 +15,15 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{asset('assets/css/core.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/core.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet"/>
 
-    <link href="{{asset('css/izimodal/iziModal.min.css')}}" rel="stylesheet">
+    <!-- izimodal -->
+    <link href="{{asset('css/izimodal/iziModal.min.css')}}" rel="stylesheet"/>
+
+    <!-- izitoast -->
+    <link href="{{ asset('css/izitoast/iziToast.min.css') }}" rel="stylesheet"/>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="{{asset('assets/img/apple-touch-icon.png')}}">
@@ -95,8 +99,17 @@
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
 <script src="{{ asset('assets/js/script.min.js') }}"></script>
 
+<!-- izimodal -->
 <script src="{{ asset('js/izimodal/iziModal.min.js') }}"></script>
 <script src="{{ asset('js/izimodal/config.js') }}"></script>
+
+<!-- izitoast -->
+<script src="{{ asset('js/izitoast/iziToast.min.js') }}"></script>
+
+<!-- template notifications -->
+<script src="{{ asset('js/template/notifications.js') }}"></script>
+
+@yield('scripts')
 
 <script>
     $.ajaxSetup({
@@ -104,10 +117,21 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    $( document ).ajaxSuccess(function (event, response) {
+        response.responseJSON && response.responseJSON.title ? showNotification(response.responseJSON) : null;
+    });
+
+    $( document ).ajaxError(function( event, response, settings, thrownError ) {
+        if(response.status === 422){
+            showValidationErrors(response.responseJSON);
+        }
+        if (response.status === 500) {
+            response.responseJSON && response.responseJSON.title ? showNotification(response.responseJSON) : null;
+        }
+
+    });
 </script>
-
-
-@yield('scripts')
 
 </body>
 </html>

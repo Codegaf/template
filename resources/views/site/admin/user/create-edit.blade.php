@@ -8,12 +8,14 @@
             <div class="row">
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Nombre') }}</label>
-                    <input class="form-control" type="text" name="name" value="{{ old('name', isset($user) ? $user->name : null) }}" required="required">
+                    <input id="name" class="form-control" type="text" name="name" value="{{ old('name', isset($user) ? $user->name : null) }}" required="required">
+                    <div class="help-block"></div>
                 </div>
 
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Email') }}</label>
-                    <input class="form-control" type="email" name="email" value="{{ old('name', isset($user) ? $user->email : null) }}" required="required">
+                    <input id="email" class="form-control" type="email" name="email" value="{{ old('name', isset($user) ? $user->email : null) }}" required="required">
+                    <div class="help-block"></div>
                 </div>
             </div>
 
@@ -21,11 +23,13 @@
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Contraseña') }}</label>
                     <input id="password" class="form-control" type="password" name="password" {{!isset($user) ? 'required=required' : null}}>
+                    <div class="help-block"></div>
                 </div>
 
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Confirmar Contraseña') }}</label>
                     <input id="password_confirmation" class="form-control" type="password" name="password_confirmation">
+                    <div class="help-block"></div>
                 </div>
             </div>
         </div>
@@ -38,6 +42,8 @@
 </form>
 
 <script src="{{ asset('js/jquery-validation/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/template/validator.notifications.js') }}"></script>
+
 <script>
     var form = $('#frm-user');
     var url = form.attr('action');
@@ -56,9 +62,8 @@
         submitHandler: function() {
             $.post(url, form.serialize()).done(function() {
                 oTable.draw();
-            }).fail(function(response) {
-
-            });
+                $('#modal').iziModal('close');
+            })
         }
     });
 </script>
