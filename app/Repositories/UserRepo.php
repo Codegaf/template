@@ -19,21 +19,4 @@ class UserRepo extends BaseRepo
 
         return $query;
     }
-
-    public function store(Request $request, User $user = null) {
-        if (!is_null($user)) {
-            if ($request->password) {
-                $request->merge(['password' => bcrypt($request->password)]);
-                $this->update($user, $request->all());
-            }
-            else {
-                $this->update($user, $request->except('password'));
-            }
-        }
-        else {
-            $this->create($request->all());
-        }
-
-        return $user;
-    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSave;
 use App\Repositories\UserRepo;
+use App\Traits\UserTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,6 +15,9 @@ use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
+
+    use UserTrait;
+
     protected $userRepo;
 
     public function __construct(UserRepo $userRepo) {
@@ -49,7 +53,8 @@ class UserController extends Controller
     public function store(UserSave $request)
     {
         try {
-            $this->userRepo->store($request);
+            $data = $this->processPassword($request);
+            $this->userRepo->create($data);
         }
         catch (Throwable $e) {
             Log::error($e);
@@ -91,7 +96,8 @@ class UserController extends Controller
     public function update(UserSave $request, User $user)
     {
         try {
-            $this->userRepo->store($request, $user);
+            $data = $this->processPassword($request);
+            $this->userRepo->update($user, $data);
         }
         catch (Throwable $e) {
             Log::error($e);
