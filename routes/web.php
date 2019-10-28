@@ -18,8 +18,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::group(['prefix' => 'users', 'as' => 'user.'], function() {
-   Route::post('list', 'User\UserController@list')->name('list');
+   Route::post('list', 'Admin\User\UserController@list')->name('list');
 });
-Route::resource('user', 'User\UserController');
+Route::resource('user', 'Admin\User\UserController');
 
 

@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Repositories;
+
+use App\{{modelName}};
+
+class {{modelName}}Repo extends BaseRepo {
+
+    public function getModel() {
+        return new {{modelName}}();
+    }
+
+    public function selectDatatable() {
+        $query = $this->getModel()
+        ->select('*');
+        return $query;
+    }
+
+}

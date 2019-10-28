@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSave;
@@ -21,6 +21,7 @@ class UserController extends Controller
     protected $userRepo;
 
     public function __construct(UserRepo $userRepo) {
+        $this->middleware(['permission:create user|edit users|list users|delete users']);
         $this->userRepo = $userRepo;
     }
 
@@ -131,7 +132,7 @@ class UserController extends Controller
         return DataTables::of($users)
             ->addColumn('actions', function(User $user) {
                 $string = '<a href="'.route('user.edit', ['user' => $user->id]).'" class="btn btn-square btn-info mr-1 url_imodal" data-title="Editar Usuario" data-ico="fa fa-user"><i class="ti-pencil"></i></a>';
-                $string .= '<a class="btn btn-square btn-danger text-white"><i class="ti-trash"></i></a>';
+                $string .= '<a href="'.route('user.destroy', ['user' => $user->id]).'" class="btn btn-square btn-danger text-white btn-delete"><i class="ti-trash"></i></a>';
 
                 return $string;
             })

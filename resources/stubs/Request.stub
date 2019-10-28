@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+
+class {{modelName}}Request extends FormRequest
+{
+    public function authorize()
+    {
+        return true;
+    }
+
+    public function getValidatorInstance()
+    {
+        trimAndLowerCase($this);
+        return parent::getValidatorInstance();
+    }
+
+    public function rules()
+    {
+        return [];
+    }
+
+    protected function failedValidation(Validator $validator)
+        {
+
+            if(Request::ajax()){
+                throw new HttpResponseException(
+                    response()->json([
+
+                        'data_failed' => $validator->messages(),
+                        'title' => __('global.default-form-validation-error-title'),
+                        'message' => __('global.default-form-validation-error-msg'),
+                    ], 422
+                    )
+                );
+            }else{
+                throw new ValidationException($validator);
+            }
+        }
+        public function messages()
+            {
+                return [
+                    'name.required' =>  'El campo nombre es obligatorio',
+                ];
+            }
+}

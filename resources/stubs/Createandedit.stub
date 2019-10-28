@@ -1,0 +1,45 @@
+<form id="{{$model_name}}_form" action="" style="width: 100%;padding: 10px;">
+<div class="row" >
+    @if(isset(${{$model_name}}))
+        <input type="hidden" name="_method" value="PUT">
+    @endif
+        @csrf
+        {{$imputs}}
+
+</div>
+
+        <footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" id="btn-save-{{$model_name}}" class="btn btn-success btn-block ">{{__('global.save')}}</button>
+                </div>
+            </div>
+        </footer>
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        @if(isset(${{$model_name}}))
+            var url = " {{route('{{$model_name}}.update',['{{$model_name}}'=>${{$model_name}}->getId()])}} ";
+        @else
+            var url = " {{route('{{$model_name}}.store')}} ";
+        @endif
+
+        $('.datetimepicker').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'DD/MM/YYYY',
+            locale: "es"
+        });
+
+        $('#btn-save-{{$model_name}}').click(function () {
+            var data = $( "#{{$model_name}}_form" ).serialize();
+            $.post(url,data,function() {
+                o{{$model_name_upper}}Table.draw(false);
+                $('#modal').iziModal('close');
+            });
+        });
+
+    });
+
+</script>

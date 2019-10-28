@@ -70,5 +70,11 @@
             ]
         });
 
+        $( document ).on('click', '.btn-delete', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            deleteNotification(url, oTable);
+        });
+
     </script>
 @endsection

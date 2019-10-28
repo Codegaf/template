@@ -97,3 +97,42 @@ function typeNotification(status) {
         };
     }
 }
+
+function deleteNotification(url) {
+    iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        id: 'question',
+        zindex: 999,
+        icon: 'fa fa-question',
+        backgroundColor: '#f2a654',
+        titleColor: '#000',
+        messageColor: '#000',
+        iconColor: '#000',
+        title: '¿Está seguro?',
+        message: 'Se procederá a su eliminación',
+        position: 'center',
+        buttons: [
+            ['<button><b>SÍ</b></button>', function (instance, toast) {
+                $.post(url, {_method: 'DELETE'}).done(function() {
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                    if (oTable) {
+                        oTable.draw();
+                    }
+                });
+
+            }, true],
+            ['<button>NO</button>', function (instance, toast) {
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+            }],
+        ],
+        onClosing: function(instance, toast, closedBy){
+
+        },
+        onClosed: function(instance, toast, closedBy){
+
+        }
+    });
+}

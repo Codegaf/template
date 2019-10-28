@@ -12,7 +12,7 @@ trait UserTrait {
             $data = $request->all();
         }
         else {
-            $data = self::exceptAttributes($request, ['password']);
+            $data = $request->except('password');
         }
 
         return $data;
@@ -20,9 +20,5 @@ trait UserTrait {
 
     static function bcryptPassword($password) {
         return bcrypt($password);
-    }
-
-    static function exceptAttributes(Request $request, Array $attributes) {
-        return $request->except($attributes);
     }
 }
