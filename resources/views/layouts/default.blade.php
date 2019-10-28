@@ -92,7 +92,7 @@
 </div>
 <!-- END Global quickview -->
 
-
+@routes
 
 <!-- Scripts -->
 <script src="{{ asset('assets/js/core.min.js') }}"></script>
@@ -108,6 +108,24 @@
 
 <!-- template notifications -->
 <script src="{{ asset('js/template/notifications.js') }}"></script>
+
+<script>
+    (function($) {
+        $.fn.donetyping = function(callback){
+            var _this = $(this);
+            var x_timer;
+            _this.keyup(function (){
+                clearTimeout(x_timer);
+                x_timer = setTimeout(clear_timer, 1000);
+            });
+
+            function clear_timer(){
+                clearTimeout(x_timer);
+                callback.call(_this);
+            }
+        }
+    })(jQuery);
+</script>
 
 @yield('scripts')
 
@@ -131,6 +149,7 @@
         }
 
     });
+
 </script>
 
 </body>

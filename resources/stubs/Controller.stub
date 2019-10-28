@@ -7,10 +7,10 @@ use App\{{modelName}};
 use Illuminate\Support\Facades\DB;
 use App\Repositories\{{modelName}}Repo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 class {{modelName}}Controller extends Controller
 {
@@ -25,35 +25,37 @@ class {{modelName}}Controller extends Controller
 
     public function index()
     {
-               //renderizado de vista listado
-               $list = view('site.{{modelNameSingularLowerCase}}.listing')->render();
-               return $list;
+        //renderizado de vista listado
+        $list = view('site.{{modelNameSingularLowerCase}}.listing')->render();
+        return $list;
     }
     public function list(Request $request){
-     $models = $this->{{modelNameSingularLowerCase}}Repo->get{{modelName}}(
-                $request->input('filter_id') ? $request->input('filter_id'): null,
-                $request->input('filter_name') ? $request->input('filter_name'): null
-            );
+        $models = $this->{{modelNameSingularLowerCase}}Repo->get{{modelName}}(
+            $request->input('filter_id') ? $request->input('filter_id'): null,
+            $request->input('filter_name') ? $request->input('filter_name'): null
+        );
 
-            return DataTables::of($models)
-                ->addColumn('actions',function ($model){
-                    $response="";
-                    $response.='<a title="Ver " style="margin:3px;"  href="'. route("{{modelNameSingularLowerCase}}.show",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="url_imodal btn btn-success btn-circle btn-xs" data-title="Mostrar datos " data-subtitle="" data-ico="" data-width="900"><i class="glyphicon glyphicon-eye-open"></i></a>';
-                    $response.='<a title="Editar " style="margin:3px;" href="'. route("{{modelNameSingularLowerCase}}.edit",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="url_imodal btn btn-info btn-circle btn-xs" data-title="Editar datos" data-subtitle="" data-ico="" data-width="900"><i class="glyphicon glyphicon-pencil"></i></a>';
-                    if($model->delete_at == null){
-                        $response.='<a title="Desactivar " style="margin:3px;" data-href="'. route("{{modelNameSingularLowerCase}}.destroy",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="btn btn-danger btn-circle btn-xs btn-delete text-white" data-title="Desactivar " data-subtitle="" data-ico="" data-width="900" ><i class="glyphicon glyphicon-trash"></i></a>';
-                    }else{
-                        $response.='<a title="Activar " style="margin:3px;" href="'.route("{{modelNameSingularLowerCase}}.restore",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="url_imodal btn btn-warning btn-circle btn-xs" data-title="Restaurar " data-subtitle="" data-ico="" data-width="900" ><i class="glyphicon glyphicon-retweet"></i></a>';
-                    }
-                    return $response;
-                })
-                ->rawColumns(['actions'])
-                ->make(true);
+        return DataTables::of($models)
+            ->addColumn('actions',function ($model) {
+                $response="";
+                $response.='<a title="Ver " style="margin:3px;"  href="'. route("{{modelNameSingularLowerCase}}.show",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="url_imodal btn btn-success btn-circle btn-xs" data-title="Mostrar datos " data-subtitle="" data-ico="" data-width="900"><i class="glyphicon glyphicon-eye-open"></i></a>';
+                $response.='<a title="Editar " style="margin:3px;" href="'. route("{{modelNameSingularLowerCase}}.edit",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="url_imodal btn btn-info btn-circle btn-xs" data-title="Editar datos" data-subtitle="" data-ico="" data-width="900"><i class="glyphicon glyphicon-pencil"></i></a>';
+                if ($model->delete_at == null) {
+                    $response.='<a title="Desactivar " style="margin:3px;" data-href="'. route("{{modelNameSingularLowerCase}}.destroy",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="btn btn-danger btn-circle btn-xs btn-delete text-white" data-title="Desactivar " data-subtitle="" data-ico="" data-width="900" ><i class="glyphicon glyphicon-trash"></i></a>';
+                }
+                else {
+                    $response.='<a title="Activar " style="margin:3px;" href="'.route("{{modelNameSingularLowerCase}}.restore",['{{modelNameSingularLowerCase}}'=>$model->getId()] ) .'" class="url_imodal btn btn-warning btn-circle btn-xs" data-title="Restaurar " data-subtitle="" data-ico="" data-width="900" ><i class="glyphicon glyphicon-retweet"></i></a>';
+                }
+
+                return $response;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+
     }
 
-    public function create()
-    {
-        try{
+    public function create() {
+        try {
             return view('site.{{modelNameSingularLowerCase}}.create-edit')->render();
         }
         catch (Throwable $e){
@@ -62,8 +64,7 @@ class {{modelName}}Controller extends Controller
         }
     }
 
-    public function store({{modelName}}Request $request)
-    {
+    public function store({{modelName}}Request $request) {
         try {
 
             ${{modelNameSingularLowerCase}} = $this->{{modelNameSingularLowerCase}}Repo->save($request->all());
@@ -77,9 +78,8 @@ class {{modelName}}Controller extends Controller
         return response()->success();
     }
 
-    public function show({{modelName}} ${{modelNameSingularLowerCase}})
-    {
-         try{
+    public function show({{modelName}} ${{modelNameSingularLowerCase}}) {
+         try {
             $model = ${{modelNameSingularLowerCase}};
             if($model == null){
                 throw new Exception(__('error_manual_exeption'));
@@ -87,7 +87,7 @@ class {{modelName}}Controller extends Controller
             $model = $model->toArray();
 
          }
-         catch (Throwable $e){
+         catch (Throwable $e) {
             Log::error($e);
             return view('errors.error-modal', compact('error_msg'))->render();
          }
@@ -107,11 +107,10 @@ class {{modelName}}Controller extends Controller
         }
     }
 
-    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameSingularLowerCase}})
-    {
+    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameSingularLowerCase}}) {
         try {
 
-            ${{modelNameSingularLowerCase}} = $this->{{modelNameSingularLowerCase}}Repo->update(${{modelNameSingularLowerCase}}, $request->all()}});
+            ${{modelNameSingularLowerCase}} = $this->{{modelNameSingularLowerCase}}Repo->update(${{modelNameSingularLowerCase}}, $request->all());
 
         }
         catch (Throwable $e){
@@ -124,34 +123,32 @@ class {{modelName}}Controller extends Controller
     }
 
 
-     public function destroy( {{modelName}} ${{modelNameSingularLowerCase}})
-        {
-            try {
-                $model = ${{modelNameSingularLowerCase}};
+     public function destroy({{modelName}} ${{modelNameSingularLowerCase}}) {
+        try {
+            $model = ${{modelNameSingularLowerCase}};
 
-                if($model == null){
-                    throw new Exception(__('error_null'));
-                }
+            if ($model == null) {
+                throw new Exception(__('error_null'));
+            }
 
                 $model->delete();
-            }
-            catch (Throwable $e){
-                Log::error($e);
+        }
+        catch (Throwable $e) {
+            Log::error($e);
 
-                return response()->error();
-            }
-
-            return response()->success();
+            return response()->error();
         }
 
-     public function restore( {{modelName}} ${{modelNameSingularLowerCase}}){
-        try{
+        return response()->success();
+     }
+
+     public function restore({{modelName}} ${{modelNameSingularLowerCase}}) {
+        try {
             DB::beginTransaction();
 
             DB::commit();
-
         }
-        catch (Throwable $e){
+        catch (Throwable $e) {
             DB::rollback();
             Log::error($e);
 
@@ -160,8 +157,8 @@ class {{modelName}}Controller extends Controller
 
         return response()->success();
      }
-     public function forceDelete( {{modelName}} ${{modelNameSingularLowerCase}}){
-        try{
+     public function forceDelete( {{modelName}} ${{modelNameSingularLowerCase}}) {
+        try {
             DB::beginTransaction();
 
             DB::commit();

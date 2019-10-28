@@ -17,6 +17,9 @@
             <h4 class="card-title">{{ __('Usuarios') }}</h4>
 
             <div class="card-body">
+
+                @include('site.admin.user.filters')
+
                 <div class="row mb-3">
                     <div class="col-12">
                         <a href="{{ route('user.create') }}" class="btn btn-info float-right url_imodal" data-title="Nuevo Usuario" data-ico="fa fa-user">{{ __('Nuevo') }}</a>
@@ -61,6 +64,8 @@
                 type: 'POST',
                 url: '{{route('user.list')}}',
                 data: function (d) {
+                    d.f_name = $('#f_name').val();
+                    d.f_email = $('#f_email').val();
                 }
             },
             columns: [
@@ -73,8 +78,12 @@
         $( document ).on('click', '.btn-delete', function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
-            deleteNotification(url, oTable);
+            deleteNotification(url, oTable
+            );
         });
 
+        $('#f_name, #f_email').donetyping(function() {
+           oTable.draw();
+        });
     </script>
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\UserSave;
 use App\Repositories\UserRepo;
 use App\Traits\UserTrait;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
@@ -126,8 +127,17 @@ class UserController extends Controller
         return response()->success();
     }
 
-    public function list() {
-        $users = $this->userRepo->selectDatatable();
+    /**
+     * @param Request $request
+     *
+     * @return DataTables
+     * @throws Exception
+     */
+    public function list(Request $request) {
+        $fName = $request->input('f_name');
+        $fEmail = $request->input('f_email');
+
+        $users = $this->userRepo->selectDatatable($fName, $fEmail);
 
         return DataTables::of($users)
             ->addColumn('actions', function(User $user) {
