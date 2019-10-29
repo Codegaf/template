@@ -11,14 +11,14 @@
 
             <li class="menu-category">Admin</li>
 
-            <li class="menu-item active">
+            <li class="menu-item {{ Route::currentRouteName() == 'home' ? 'active' : null }}">
                 <a class="menu-link" href="{{ route('home') }}">
                     <span class="icon fa fa-home"></span>
                     <span class="title">Inicio</span>
                 </a>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : null }}">
                 <a class="menu-link" href="{{ route('user.index') }}">
                     <span class="icon fa fa-user"></span>
                     <span class="title">Users</span>
