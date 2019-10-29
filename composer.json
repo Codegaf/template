@@ -15,7 +15,8 @@
         "spatie/laravel-permission": "^3.2",
         "spatie/laravel-translatable": "^4.2",
         "tightenco/ziggy": "^0.8.1",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "jdavidbakr/mail-tracker": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSave;
+use App\Repositories\RoleAndPermissionRepo;
 use App\Repositories\UserRepo;
 use App\Traits\UserTrait;
 use App\User;
@@ -20,10 +21,12 @@ class UserController extends Controller
     use UserTrait;
 
     protected $userRepo;
+    protected $roleAndPermissionRepo;
 
-    public function __construct(UserRepo $userRepo) {
+    public function __construct(UserRepo $userRepo, RoleAndPermissionRepo $roleAndPermissionRepo) {
         $this->middleware(['permission:create user|edit users|list users|delete users']);
         $this->userRepo = $userRepo;
+        $this->roleAndPermissionRepo = $roleAndPermissionRepo;
     }
 
     /**
@@ -43,7 +46,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('site.admin.user.create-edit');
+        $roles = $this->roleAndPermissionRepo->roles();
+
+        return view('site.admin.user.create-edit', compact('roles'));
     }
 
     /**
@@ -121,6 +126,7 @@ class UserController extends Controller
             $this->userRepo->delete($user);
         }
         catch (Throwable $e) {
+            Log::error($e);
             return response()->error();
         }
 

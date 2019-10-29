@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => Carbon::now()
         ]);
 
-        $user->givePermissionTo(['create users', 'edit users', 'delete users', 'list users']);
+        $user->assignRole('admin');
+
     }
 }
