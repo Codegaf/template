@@ -7,9 +7,9 @@
         <div class="form-groups-attached">
             <div class="row">
                 <div class="form-group form-type-combine col-12">
-                    <label>{{ __('Rol') }}</label>
+                    <label for="role">{{ __('Rol') }}</label>
 
-                    <select id="role" class="form-control" data-provide="selectpicker">
+                    <select id="role" class="form-control" name="role" data-provide="selectpicker">
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->name }}</option>
                         @endforeach
