@@ -69024,9 +69024,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
-__webpack_require__(/*! ./components/PermissionsSelect */ "./resources/js/components/PermissionsSelect.js");
-
 __webpack_require__(/*! ./components/RolesSelect */ "./resources/js/components/RolesSelect.js");
+
+__webpack_require__(/*! ./components/PermissionsSelect */ "./resources/js/components/PermissionsSelect.js");
 
 /***/ }),
 
@@ -69080,9 +69080,76 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   !*** ./resources/js/components/PermissionsSelect.js ***!
   \******************************************************/
 /*! no exports provided */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: E:\\proyectos\\template\\resources\\js\\components\\PermissionsSelect.js: Identifier 'RolesSelect' has already been declared (8:6)\n\n   6 | const e = React.createElement;\n   7 | \n>  8 | class RolesSelect extends React.Component {\n     |       ^\n   9 |     constructor(props) {\n  10 |         super(props);\n  11 |         this.state = { permissions: [] };\n    at Object.raise (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:6420:17)\n    at ScopeHandler.checkRedeclarationInScope (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:3776:12)\n    at ScopeHandler.declareName (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:3742:12)\n    at Object.checkLVal (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:8159:22)\n    at Object.parseClassId (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:11038:14)\n    at Object.parseClass (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:10755:10)\n    at Object.parseStatementContent (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:10051:21)\n    at Object.parseStatement (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:10009:17)\n    at Object.parseBlockOrModuleBlockBody (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:10585:25)\n    at Object.parseBlockBody (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:10572:10)\n    at Object.parseTopLevel (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:9940:10)\n    at Object.parse (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:11447:17)\n    at parse (E:\\proyectos\\template\\node_modules\\@babel\\parser\\lib\\index.js:11483:38)\n    at parser (E:\\proyectos\\template\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:168:34)\n    at normalizeFile (E:\\proyectos\\template\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:102:11)\n    at runSync (E:\\proyectos\\template\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (E:\\proyectos\\template\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (E:\\proyectos\\template\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var e = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+var PermissionsSelect =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PermissionsSelect, _React$Component);
+
+  function PermissionsSelect(props) {
+    var _this;
+
+    _classCallCheck(this, PermissionsSelect);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PermissionsSelect).call(this, props));
+    _this.state = {
+      permissions: []
+    };
+    return _this;
+  }
+
+  _createClass(PermissionsSelect, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group form-type-combine col-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "permission"
+      }, "Permisos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "permission",
+        className: "form-control",
+        name: "permission",
+        "data-provide": "selectpicker"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, this.state.permissions))));
+    }
+  }]);
+
+  return PermissionsSelect;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var domContainer = document.querySelector('#permissions');
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(e(PermissionsSelect), domContainer);
 
 /***/ }),
 
@@ -69090,7 +69157,7 @@ throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index
 /*!************************************************!*\
   !*** ./resources/js/components/RolesSelect.js ***!
   \************************************************/
-/*! exports provided: default */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69194,7 +69261,8 @@ function (_React$Component) {
   return RolesSelect;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (RolesSelect);
+var domContainer = document.querySelector('#roles');
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(e(RolesSelect), domContainer);
 
 /***/ }),
 
@@ -69216,8 +69284,8 @@ function (_React$Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\proyectos\template\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\proyectos\template\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\proyectos\template\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\proyectos\template\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

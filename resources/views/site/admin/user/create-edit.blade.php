@@ -5,8 +5,6 @@
     <div class="card-body">
 
         <div class="form-groups-attached">
-            <RolesSelect/>
-
             <div class="row">
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Nombre') }}</label>
@@ -34,7 +32,7 @@
                     <div class="help-block"></div>
                 </div>
             </div>
-
+            <div id="roles"></div>
             <div id="permissions"></div>
         </div>
 

@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
-import RolesSelect from 'RolesSelect';
 
 const e = React.createElement;
 
-class RolesSelect extends React.Component {
+class PermissionsSelect extends React.Component {
     constructor(props) {
         super(props);
         this.state = { permissions: [] };
@@ -27,4 +25,4 @@ class RolesSelect extends React.Component {
 }
 
 const domContainer = document.querySelector('#permissions');
-ReactDOM.render(e(RolesSelect), domContainer);
+ReactDOM.render(e(PermissionsSelect), domContainer);

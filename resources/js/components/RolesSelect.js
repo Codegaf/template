@@ -40,4 +40,5 @@ class RolesSelect extends React.Component {
     }
 }
 
-export default RolesSelect;
+const domContainer = document.querySelector('#roles');
+ReactDOM.render(e(RolesSelect), domContainer);
