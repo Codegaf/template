@@ -46,9 +46,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = $this->roleAndPermissionRepo->roles();
-
-        return view('site.admin.user.create-edit', compact('roles'));
+        return view('site.admin.user.create-edit');
     }
 
     /**
@@ -154,5 +152,9 @@ class UserController extends Controller
             })
             ->rawColumns(['actions'])
             ->make(true);
+    }
+
+    public function roles() {
+        return $this->roleAndPermissionRepo->roles();
     }
 }

@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'users', 'as' => 'user.'], function() {
    Route::post('list', 'Admin\User\UserController@list')->name('list');
+   Route::get('roles', 'Admin\User\UserController@roles')->name('roles');
 });
 Route::resource('user', 'Admin\User\UserController');
 
