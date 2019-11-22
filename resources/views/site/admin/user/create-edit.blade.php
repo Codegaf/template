@@ -6,6 +6,18 @@
 
         <div class="form-groups-attached">
             <div class="row">
+                <div class="form-group form-type-combine col-12">
+                    <label for="role">{{ __('Rol') }}</label>
+
+                    <select id="role" class="form-control" name="role" data-provide="selectpicker">
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Nombre') }}</label>
                     <input id="name" class="form-control" type="text" name="name" value="{{ old('name', isset($user) ? $user->name : null) }}" required="required">
@@ -32,8 +44,6 @@
                     <div class="help-block"></div>
                 </div>
             </div>
-            <div id="roles"></div>
-            <div id="permissions"></div>
         </div>
 
     </div>
@@ -43,10 +53,8 @@
     </footer>
 </form>
 
-<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/jquery-validation/jquery.validate.js') }}"></script>
 <script src="{{ asset('js/template/validator.notifications.js') }}"></script>
-
 
 <script>
     var form = $('#frm-user');
@@ -71,6 +79,3 @@
         }
     });
 </script>
-
-
-

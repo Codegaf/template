@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
 use Throwable;
 use Yajra\DataTables\DataTables;
 
@@ -46,7 +47,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('site.admin.user.create-edit');
+        $roles = Role::all();
+
+        return view('site.admin.user.create-edit', compact('roles'));
     }
 
     /**
@@ -88,7 +91,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('site.admin.user.create-edit', compact('user'));
+        $roles = Role::all();
+
+        return view('site.admin.user.create-edit', compact('user', 'roles'));
     }
 
     /**
