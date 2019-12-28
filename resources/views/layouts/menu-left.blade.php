@@ -25,6 +25,19 @@
                 </a>
             </li>
 
+            <li class="menu-item {{ Route::currentRouteName() == 'multimedia.index' ? 'active' : null }}">
+                <a class="menu-link" href="{{ route('multimedia.index') }}">
+                    <span class="icon fa fa-image"></span>
+                    <span class="title">Multimedia</span>
+                </a>
+            </li>
+            <li class="menu-item {{ Route::currentRouteName() == 'configuration.index' ? 'active' : null }}">
+                <a class="menu-link" href="{{ route('configuration.index') }}">
+                    <span class="icon fa fa-cogs"></span>
+                    <span class="title">Configuración</span>
+                </a>
+            </li>
+
             <li class="menu-item">
                 <a class="menu-link" href="#" onclick="document.getElementById('logout-form').submit();">
                     <span class="icon ti-power-off"></span>

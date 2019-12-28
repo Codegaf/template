@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSave;
 use App\Repositories\RoleAndPermissionRepo;
 use App\Repositories\UserRepo;
+use App\Services\MediaLibraryService;
 use App\Traits\UserTrait;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 use Throwable;
@@ -23,11 +25,13 @@ class UserController extends Controller
 
     protected $userRepo;
     protected $roleAndPermissionRepo;
+    protected $mediaLibraryService;
 
-    public function __construct(UserRepo $userRepo, RoleAndPermissionRepo $roleAndPermissionRepo) {
+    public function __construct(UserRepo $userRepo, RoleAndPermissionRepo $roleAndPermissionRepo, MediaLibraryService $mediaLibraryService) {
         $this->middleware(['permission:create user|edit users|list users|delete users']);
         $this->userRepo = $userRepo;
         $this->roleAndPermissionRepo = $roleAndPermissionRepo;
+        $this->mediaLibraryService = $mediaLibraryService;
     }
 
     /**
@@ -61,10 +65,14 @@ class UserController extends Controller
     public function store(UserSave $request)
     {
         try {
+            DB::beginTransaction();
             $data = $this->processPassword($request);
-            $this->userRepo->create($data);
+            $user = $this->userRepo->create($data);
+            $this->mediaLibraryService->addImage($user, $request,'avatar','avatars');
+            DB::commit();
         }
         catch (Throwable $e) {
+            DB::rollBack();
             Log::error($e);
             return response()->error();
         }
@@ -106,10 +114,16 @@ class UserController extends Controller
     public function update(UserSave $request, User $user)
     {
         try {
+            DB::beginTransaction();
             $data = $this->processPassword($request);
             $this->userRepo->update($user, $data);
+            $this->mediaLibraryService->addImage($user, $request,'video','videos');
+            $this->mediaLibraryService->addImage($user, $request,'avatar','avatars');
+
+            DB::commit();
         }
         catch (Throwable $e) {
+            DB::rollBack();
             Log::error($e);
             return response()->error();
         }

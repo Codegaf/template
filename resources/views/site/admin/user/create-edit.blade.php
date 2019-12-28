@@ -6,6 +6,25 @@
 
         <div class="form-groups-attached">
             <div class="row">
+                <div class="col-md-6">
+                    <label for="">Imagen</label>
+                    <input id="user_perfil" data-provide="dropify" style="box-sizing: inherit!important;" type="file" @if(isset($user))data-default-file="{{count($user->getMedia('avatars'))>0 ?  $user->getMedia('avatars')->first()->getFullUrl():null}}" @endif name="avatar" data-height="160" data-max-width="15000" data-min-width="10" />
+
+
+                </div>
+
+{{--                @if(isset($user) && count($user->getMedia('videos'))>0)--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <video height="300" width="300" autoplay controls>--}}
+{{--                            <source src="{{count($user->getMedia('videos'))>0 ?  $user->getMedia('videos')->first()->getFullUrl():null}}" type="video/mp4">--}}
+{{--                        </video>--}}
+{{--                    </div>--}}
+{{--                @else--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <label for="">Video</label>--}}
+{{--                        <input id="user_video" data-provide="dropify" style="box-sizing: inherit!important;" type="file"  name="video" data-height="160" data-max-width="15000" data-min-width="10" />--}}
+{{--                    </div>--}}
+{{--                @endif--}}
                 <div class="form-group form-type-combine col-12">
                     <label for="role">{{ __('Rol') }}</label>
 
@@ -18,6 +37,7 @@
             </div>
 
             <div class="row">
+
                 <div class="form-group col-12 col-lg-6">
                     <label>{{ __('Nombre') }}</label>
                     <input id="name" class="form-control" type="text" name="name" value="{{ old('name', isset($user) ? $user->name : null) }}" required="required">
@@ -49,7 +69,7 @@
     </div>
 
     <footer class="card-footer text-right">
-        <button class="btn btn-primary" type="submit">Guardar</button>
+        <button class="btn btn-primary" id="btn-submit-form" type="submit" >Guardar</button>
     </footer>
 </form>
 
@@ -57,8 +77,14 @@
 <script src="{{ asset('js/template/validator.notifications.js') }}"></script>
 
 <script>
+
+        @if(isset($user))
+    var url = " {{route('user.update',['user'=>$user->getId()])}} ";
+        @else
+    var url = " {{route('user.store')}} ";
+        @endif
     var form = $('#frm-user');
-    var url = form.attr('action');
+    // var url = form.attr('action');
 
     form.validate({
         rules: {
@@ -72,10 +98,33 @@
             }
         },
         submitHandler: function() {
-            $.post(url, form.serialize()).done(function() {
-                oTable.draw();
-                $('#modal').iziModal('close');
-            })
+            // var data = $( "#user_form" ).serialize();
+            var formData = new FormData($('#frm-user')[0]);
+            // var number_file=0;
+            // $.each( $('input[type=file]')[0].files, function () {
+            //     formData.append('file_'+number_file, $('input[type=file]')[0].files[number_file]);
+            //     number_file++;
+            // });
+
+            $.ajax({
+                method: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                url: url,
+                success: function (oResponse) {
+                    oTable.draw(false);
+                    $('#btn-submit-form').parents('.modal_father').iziModal('close');
+                }
+            });
+            // $.post(url, form.serialize()).done(function() {
+            //     oTable.draw();
+            //     $('#modal').iziModal('close');
+            // })
         }
     });
+
+
 </script>

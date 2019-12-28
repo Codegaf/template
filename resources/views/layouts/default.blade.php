@@ -24,6 +24,7 @@
 
     <!-- izitoast -->
     <link href="{{ asset('css/izitoast/iziToast.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/loader.css') }}" rel="stylesheet"/>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="{{asset('assets/img/apple-touch-icon.png')}}">
@@ -55,13 +56,16 @@
 <body>
 
 <!-- Preloader -->
-<div class="preloader">
-    <div class="spinner-dots">
-        <span class="dot1"></span>
-        <span class="dot2"></span>
-        <span class="dot3"></span>
-    </div>
-</div>
+{{--<div class="preloader">--}}
+{{--    <div class="spinner-dots">--}}
+{{--        <span class="dot1"></span>--}}
+{{--        <span class="dot2"></span>--}}
+{{--        <span class="dot3"></span>--}}
+{{--    </div>--}}
+{{--</div>--}}
+<div class="loading"></div>
+<div class="content-custom">
+
 
 
 @include('layouts.menu-left')
@@ -81,7 +85,7 @@
 <!-- END Main container -->
 
 <!-- Modal -->
-<div id="modal"></div>
+<div id="modal_0"></div>
 <!-- END Modal -->
 
 <!-- Global quickview -->
@@ -136,6 +140,26 @@
         }
     });
 
+    $( document ).ajaxStart(function() {
+        $( ".loading" ).show();
+        // $('.main-container').addClass('blur');
+        $('.content-custom').addClass('blur');
+
+    });
+    $( document ).ajaxStop(function() {
+        $( ".loading" ).hide();
+        // $('.main-container').removeClass('blur');
+        $('.content-custom').removeClass('blur');
+
+    });
+    $( document ).ajaxError(function() {
+        $( ".loading" ).hide();
+        // $('.main-container').removeClass('blur');
+        $('.content-custom').removeClass('blur');
+
+    });
+
+
     $( document ).ajaxSuccess(function (event, response) {
         response.responseJSON && response.responseJSON.title ? showNotification(response.responseJSON) : null;
     });
@@ -151,6 +175,6 @@
     });
 
 </script>
-
+</div>
 </body>
 </html>

@@ -54,7 +54,24 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        'users_avatar' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/users/avatar/'),
+            'url' => env('APP_URL').'/storage/users/avatar',
+            'visibility' => 'public',
+        ],
+        'users_video' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/users/video/'),
+            'url' => env('APP_URL').'/storage/users/video',
+            'visibility' => 'public',
+        ],
+        'configurations' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/configurations/'),
+            'url' => env('APP_URL').'/storage/configurations',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

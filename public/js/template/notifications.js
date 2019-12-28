@@ -98,7 +98,7 @@ function typeNotification(status) {
     }
 }
 
-function deleteNotification(url) {
+function deleteNotification(url, oTable = null, oContentModal = null) {
     iziToast.question({
         timeout: 20000,
         close: false,
@@ -129,9 +129,26 @@ function deleteNotification(url) {
             }],
         ],
         onClosing: function(instance, toast, closedBy){
-
+            $( ".loading" ).hide();
+            $('.content-custom').removeClass('blur');
+            //refrescar contenido del modal
+            if(oContentModal != null){
+                $.ajax({
+                    method: 'GET',
+                    data: null,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    url: refreshUrl,
+                    success: function (data) {
+                        oContentModal.html(data);
+                    }
+                });
+            }
+            //fin  refresh
         },
         onClosed: function(instance, toast, closedBy){
+
 
         }
     });
